@@ -30,7 +30,6 @@ int main(void) {
 	// reading line by line from std
 	while(fgets(buf, BUFFER_SIZE, stdin) != NULL){
 		// convert each line into tokens
-		printf("the buf is %s\n", buf);
 		num_token = arg_counter(buf);
 		tokenize(buf, args);
 		// check if the argument and the number of arguments are correct
