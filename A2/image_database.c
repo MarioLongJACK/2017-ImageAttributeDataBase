@@ -30,8 +30,7 @@ int main(void) {
 	// reading line by line from std
 	while(fgets(buf, BUFFER_SIZE, stdin) != NULL){
 		// convert each line into tokens
-		num_token = arg_counter(buf);
-		tokenize(buf, args);
+		num_token = tokenize(buf, args);
 		// check if the argument and the number of arguments are correct
 		if((strcmp(args[0], "i") == 0) && (num_token == 5)){
 			printf("i works\n");
@@ -47,20 +46,6 @@ int main(void) {
 	}
 
         return 0;
-}
-
-
-
-// a function that counts the number of tokens in a string arry	
-
-int arg_counter(char * args){
-	int k = 0;
-	for(int i =0; i < strlen(args); i ++){
-		if(args[i] == ' '){
-			k++;
-		}
-	}
- 	return k+1; 	
 }
 
 	

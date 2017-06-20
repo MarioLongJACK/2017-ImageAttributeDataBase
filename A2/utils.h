@@ -15,5 +15,4 @@
  * Return the number of tokens, and store pointers to them in cmd_argv.
  */
 int tokenize(char *, char **);
-int arg_counter(char *);
 #endif /* _UTILS_H */
