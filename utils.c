@@ -15,6 +15,16 @@
 int tokenize(char *cmd, char **cmd_argv) {
 	char *token;
 	int argc = 0;
+	//Remove the \n by the end of command
+	cmd[strlen(cmd)-1]= '\0';
+	if(cmd[strlen(cmd) - 1] == ' '){
+		int k = 1;
+		while(cmd[strlen(cmd)-k] == ' '){
+			k++;
+		}
+	cmd[strlen(cmd)-k+1] = '\0';
+	}
+	 
 	//get the first token
 	token = strtok(cmd, " ");
 	//insert the first token ino the array
@@ -22,15 +32,10 @@ int tokenize(char *cmd, char **cmd_argv) {
 	while (token != NULL) {
 
 		cmd_argv[argc] = token;
-		// remove the "\n" from the last token 
-		if(cmd_argv[argc][strlen(cmd_argv[argc]) -1] == '\n'){
-			cmd_argv[argc][strlen(cmd_argv[argc]) -1] = '\0';
-		}
-				
 		token = strtok(NULL , " ");
 		argc++;
 		
 	}
-        // returning 0 for now, so the compiler does not complain
-	return 0;
+        // returning argc, so that it tells how many tokens are there
+	return argc;
 }
