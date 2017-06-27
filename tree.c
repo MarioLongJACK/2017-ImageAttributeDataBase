@@ -36,10 +36,8 @@ void tree_insert(struct TreeNode *root, char **values) {
 		struct TreeNode *temp = root;
 		for(int i =1; i <4; i++){
 		temp = insert_help(temp, values[i]);
-		printf("the current node value is %s \n", temp->value);
 		}
 		insert_child(temp, values[4]);
-		printf("the current child node is %s\n", (temp->child)->value);
 }
 /**
  *  Searches a tree to print all files with matching attribute values.
@@ -48,8 +46,23 @@ void tree_insert(struct TreeNode *root, char **values) {
  *  @param values An array of attribute values
  */
 void tree_search(const struct TreeNode *root, char **values) {
+		struct TreeNode *temp = root->child;
+		int i = 1;
+		while(i < 4 && temp!= NULL){
+			temp = search_help(temp, values[i]);
+			i++;
+		}
+		if(temp != NULL){
+			while(temp != NULL) {
+				printf("%s ", temp->value);
+				temp = temp->sibling;
+			}
+			printf("\n");
+		}
+		else{
+			printf("NULL\n");
+		}
 }
-
 /**
  *  Prints a complete tree to the standard output.
  *
@@ -119,6 +132,34 @@ void insert_child(struct TreeNode* leaf, char *name){
 }
 
 
+
+
+
+/* a helper function that returns the correct node
+   given the root node and the value that need to be found
+*/
+
+struct TreeNode *search_help(struct TreeNode *curr, char *cur_val){
+	struct TreeNode *final;
+	
+	// if the tree has image implemented already
+	// create a temp node to store the first child node
+	struct TreeNode *temp;
+	temp = curr;
+	// loop through sibling to find node, stop at the end of list or the node is found
+	while((temp->sibling != NULL) && (strcmp(temp->value, cur_val) != 0)){
+			temp = temp->sibling;
+	}
+	// if no node is found, created one and attach it to the end of list 
+	if(strcmp(temp->value, cur_val) != 0){
+		final = NULL;
+	}
+	//if the node is found, return the node
+	else{	
+		final = temp->child;
+	}
+	return final;
+}
 
 
 
