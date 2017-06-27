@@ -33,10 +33,13 @@ struct TreeNode *allocate_node(const char *value) {
  *                the image and the last one is the filename
  */
 void tree_insert(struct TreeNode *root, char **values) {
+		// start with root 
 		struct TreeNode *temp = root;
+		// loop 3 times to create corresponding attributes
 		for(int i =1; i <4; i++){
 		temp = insert_help(temp, values[i]);
 		}
+		// insert the child
 		insert_child(temp, values[4]);
 }
 /**
@@ -46,12 +49,15 @@ void tree_insert(struct TreeNode *root, char **values) {
  *  @param values An array of attribute values
  */
 void tree_search(const struct TreeNode *root, char **values) {
+		// use the first attributes to be the root
 		struct TreeNode *temp = root->child;
 		int i = 1;
+		// whenever an attribute is not found, the output will be null
 		while(i < 4 && temp!= NULL){
 			temp = search_help(temp, values[i]);
 			i++;
 		}
+		// if all attributes match, print siblings one by one
 		if(temp != NULL){
 			while(temp != NULL) {
 				printf("%s ", temp->value);
@@ -141,16 +147,13 @@ void insert_child(struct TreeNode* leaf, char *name){
 
 struct TreeNode *search_help(struct TreeNode *curr, char *cur_val){
 	struct TreeNode *final;
-	
-	// if the tree has image implemented already
-	// create a temp node to store the first child node
 	struct TreeNode *temp;
 	temp = curr;
 	// loop through sibling to find node, stop at the end of list or the node is found
 	while((temp->sibling != NULL) && (strcmp(temp->value, cur_val) != 0)){
 			temp = temp->sibling;
 	}
-	// if no node is found, created one and attach it to the end of list 
+	// if no node is found, return null
 	if(strcmp(temp->value, cur_val) != 0){
 		final = NULL;
 	}
