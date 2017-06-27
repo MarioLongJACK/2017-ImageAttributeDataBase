@@ -15,7 +15,7 @@ int main(void) {
 
         // char* array to hold the pointers to tokens
 	char *args[INPUT_ARG_MAX_NUM];
-	/*
+	
         // the root of the tree
         struct TreeNode root;
         root.value = "";
@@ -23,7 +23,7 @@ int main(void) {
         root.sibling = NULL;
 	
 	struct TreeNode *root_ptr = &root;
-	*/
+	struct TreeNode *temp = root_ptr;
         // Add your code below:
 	// number of tokens for each line of argument
 	int num_token;
@@ -33,7 +33,8 @@ int main(void) {
 		num_token = tokenize(buf, args);
 		// check if the argument and the number of arguments are correct
 		if((strcmp(args[0], "i") == 0) && (num_token == 5)){
-			printf("i works\n");
+			tree_insert(temp, args);
+			temp = root_ptr;
 			}
 		else if((strcmp(args[0], "q") == 0) && (num_token == 4) ){
 			printf("q works\n");

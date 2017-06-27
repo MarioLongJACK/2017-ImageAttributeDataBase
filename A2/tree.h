@@ -18,5 +18,6 @@ struct TreeNode {
 void tree_insert(struct TreeNode *, char **);
 void tree_search(const struct TreeNode *, char **);
 void tree_print(const struct TreeNode *);
-
+struct TreeNode *insert_help(struct TreeNode *, char *);
+void insert_child(struct TreeNode *, char *);
 #endif /* _TREE_H */
