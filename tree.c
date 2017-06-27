@@ -17,7 +17,12 @@
  *  (for now it returns NULL, so the compiler does not complain)
  */
 struct TreeNode *allocate_node(const char *value) {
-	return NULL;
+	struct TreeNode* new_node = malloc(sizeof(struct TreeNode));
+	new_node->value = malloc(sizeof(char)*strlen(value));
+	strcpy(new_node->value, value);
+	new_node->sibling = NULL;
+	new_node->child = NULL; 
+	return new_node;
 }
 
 /**
@@ -28,8 +33,14 @@ struct TreeNode *allocate_node(const char *value) {
  *                the image and the last one is the filename
  */
 void tree_insert(struct TreeNode *root, char **values) {
+		struct TreeNode *temp = root;
+		for(int i =1; i <4; i++){
+		temp = insert_help(temp, values[i]);
+		printf("the current node value is %s \n", temp->value);
+		}
+		insert_child(temp, values[4]);
+		printf("the current child node is %s\n", (temp->child)->value);
 }
-
 /**
  *  Searches a tree to print all files with matching attribute values.
  *
@@ -46,3 +57,69 @@ void tree_search(const struct TreeNode *root, char **values) {
  */
 void tree_print(const struct TreeNode *tree) {
 }
+
+
+
+/* a helper function that returns the correct node
+   given the root node and the value that need to be found
+*/
+
+struct TreeNode *insert_help(struct TreeNode *curr, char *cur_val){
+	struct TreeNode *final;
+	// if the tree has no image implemented, created the corresponding node
+	if(curr->child == NULL){
+		struct TreeNode *result_node = allocate_node(cur_val);
+		curr->child = result_node;
+		final = result_node;
+	}
+	// if the tree has image implemented already
+	else{	
+		// create a temp node to store the first child node
+		struct TreeNode *temp;
+		temp = curr->child;
+		// loop through sibling to find node, stop at the end of list or the node is found
+
+		while((temp->sibling != NULL) && (strcmp(temp->value, cur_val) != 0)){
+				temp = temp->sibling;
+		}
+
+		// if no node is found, created one and attach it to the end of list
+		if((strcmp(temp->value, cur_val) != 0) && (temp->sibling == NULL )){
+			struct TreeNode *result_node1 = allocate_node(cur_val);
+			temp->sibling = result_node1;
+			final = result_node1;
+
+		}
+		//if the node is found, return the node
+		else{	
+
+			final = temp;
+		}
+	}
+	return final;
+}
+		
+/* once the node is currently the leaf node, add child to it
+*/
+void insert_child(struct TreeNode* leaf, char *name){
+		// if the leaf has no child add a child to it
+		if(leaf->child == NULL) {
+			struct TreeNode *result = allocate_node(name);
+			leaf->child = result;
+		}
+		// if the leaf has child, go to the last child's sibling and add new node to the list end
+		else{	
+			struct TreeNode *temp = leaf->child;
+			while(temp->sibling != NULL){
+				temp= temp->sibling;
+			}
+			struct TreeNode *result1 = allocate_node(name); 
+			temp->sibling = result1;
+			}
+}
+
+
+
+
+
+
