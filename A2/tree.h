@@ -20,4 +20,5 @@ void tree_search(const struct TreeNode *, char **);
 void tree_print(const struct TreeNode *);
 struct TreeNode *insert_help(struct TreeNode *, char *);
 void insert_child(struct TreeNode *, char *);
+struct TreeNode *search_help(struct TreeNode *, char *);
 #endif /* _TREE_H */
