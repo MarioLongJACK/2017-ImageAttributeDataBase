@@ -66,7 +66,7 @@ void tree_search(const struct TreeNode *root, char **values) {
 			printf("\n");
 		}
 		else{
-			printf("NULL\n");
+			printf("(NULL)\n");
 		}
 }
 /**
