@@ -75,6 +75,8 @@ void tree_search(const struct TreeNode *root, char **values) {
  *  @param tree A pointer to the root of the tree.
  */
 void tree_print(const struct TreeNode *tree) {
+	// call printhelp to print 
+	printhelp(tree->child); 
 }
 
 
@@ -164,6 +166,46 @@ struct TreeNode *search_help(struct TreeNode *curr, char *cur_val){
 	return final;
 }
 
-
-
-
+void printhelp(struct TreeNode *curr){
+	// declare 3 stages of attributes, 1, 2 and 3
+	char temp1[100] = "";
+	char temp2[100] = "";
+	char temp3[100] = "";
+	// declare temp treenode for loop
+	struct TreeNode *c2;
+	struct TreeNode *c3;
+	struct TreeNode *c4;
+	// 1st attribute, loop through child node and merge values 1st 
+	while(curr!= NULL){
+		strcpy(temp1, "");
+		strcpy(temp1, curr->value);
+		strcat(temp1, " ");
+		c2 = curr->child;
+		// 2nd attribute, loop through child node and merge values 1st 2nd 
+		while(c2 != NULL){
+			strcpy(temp2, temp1);
+			strcat(temp2, c2->value);
+			strcat(temp2, " ");
+			c3 = c2->child;
+				// 3rd attribute, loop through child node and merge values 1st 2nd third
+				while(c3 != NULL){
+				strcpy(temp3, temp2);			
+				strcat(temp3,c3->value);
+				strcat(temp3, " ");
+				c4 = c3->child;
+				// print 3 attributes along with thier children's name
+					while(c4 != NULL){
+						printf("%s%s\n", temp3, c4->value);
+						c4 = c4->sibling;
+					}
+				// keep temp1 and 2 constant
+				c3 = c3->sibling;
+				}
+			// keep temp1 constant
+			c2 = c2->sibling;			
+			}
+		// first loop, temp1 keeps changing
+		curr = curr->sibling;
+	}	
+		
+}

@@ -41,7 +41,8 @@ int main(void) {
 			temp = root_ptr;
 			}
 		else if((strcmp(args[0], "p" ) == 0) && (num_token == 1)){
-			printf("p works\n");
+			tree_print(temp);
+			temp = root_ptr;
 			}
 		else{ fprintf(stderr, "Invalid command\n");}
 		
