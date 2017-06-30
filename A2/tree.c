@@ -128,17 +128,36 @@ void insert_child(struct TreeNode* leaf, char *name){
 			struct TreeNode *result = allocate_node(name);
 			leaf->child = result;
 		}
-		// if the leaf has child, go to the last child's sibling and add new node to the list end
+		// if the leaf has child
 		else{	
 			struct TreeNode *temp = leaf->child;
-			while(temp->sibling != NULL){
-				temp= temp->sibling;
+			struct TreeNode *result1 = allocate_node(name);
+			// if the value of new node is smaller than the first node, insert it at start
+			if(strcmp(result1->value, temp->value) < 0){
+				leaf->child = result1;
+				result1->sibling = temp;
 			}
-			struct TreeNode *result1 = allocate_node(name); 
-			temp->sibling = result1;
+			// if the value is bigger
+			else{
+			struct TreeNode *next = temp->sibling;
+			// insert it when its between the bigger one and smaller one
+			while(next != NULL){
+				if((strcmp(result1->value, temp->value) > 0) && (strcmp(result1->value, next -> value) < 0)){
+						temp->sibling = result1;
+						result1->sibling = next;
+						break;
+			}
+				else{
+						temp = temp->sibling;
+						next = temp->sibling;
+				}
+			}
+			// if it is bigger than everything, insert it by the end of list
+			if(next == NULL){temp->sibling = result1;}
+			
 			}
 }
-
+}
 
 
 
